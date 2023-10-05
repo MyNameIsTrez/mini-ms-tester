@@ -1,5 +1,6 @@
 # mini-ms-tester
 Lightweight tester for the minishell project.
+
 This project aims to automate the process of testing minishell during development.
 
 ![Example Image](example.png "Usage example")
