@@ -142,14 +142,14 @@ run-test () {
 	local test_path=$1
 
 	((++TOTAL_NTESTS))
-	< $test_path $minishell_path &> $results_path/minishell_output
+	< $test_path timeout 1 $minishell_path &> $results_path/minishell_output
 	echo $? >> $results_path/minishell_output
 	rm -rf ./*
 
 	# TODO: Think of a proper fix for symlinking to replace this with
 	# perl -i -p -e "s/\/private\/tmp/\/tmp/g" $results_path/minishell_output
 
-	< $test_path bash &> $results_path/bash_output
+	< $test_path timeout 1 bash &> $results_path/bash_output
 	echo $? >> $results_path/bash_output
 	rm -rf ./*
 
@@ -300,7 +300,7 @@ test-minishell () {
 		run-test $TEST
 	done
 	cd ..
-	rmdir test_env
+	rm -rf test_env
 
 	if [ $TESTS_PASSED -ne $TOTAL_NTESTS ]
 	then
